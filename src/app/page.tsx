@@ -163,15 +163,18 @@ export default function TetrisGame() {
 	const renderPreview = (piece: typeof nextPiece | typeof heldPiece) => {
 		if (!piece) return null
 		const previewBoard = Array(4).fill(null).map(() => Array(4).fill(null))
-		piece.shape.forEach((row, y) => {
-			if (y < previewBoard.length) {  // 确保y在有效范围内
-				row.forEach((value, x) => {
-					if (value && x < previewBoard[y].length) {  // 确保x在有效范围内
-						previewBoard[y][x] = piece.color
-					}
-				})
+		
+		// 确保在访问数组之前进行边界检查
+		const maxY = Math.min(piece.shape.length, previewBoard.length)
+		for (let y = 0; y < maxY; y++) {
+			const row = piece.shape[y]
+			const maxX = Math.min(row.length, previewBoard[y].length)
+			for (let x = 0; x < maxX; x++) {
+				if (row[x]) {
+					previewBoard[y][x] = piece.color
+				}
 			}
-		})
+		}
 
 		return previewBoard.map((row, y) => (
 			<div key={y} className="flex">
