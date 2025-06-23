@@ -128,7 +128,7 @@ export default function TetrisGame() {
 				{row.map((cell, x) => {
 					// 检查是否是预览方块的位置
 					let isGhost = false
-					if (ghostPiecePosition && currentPiece) {
+					if (ghostPiecePosition && currentPiece && ghostPiecePosition.shape && ghostPiecePosition.shape[0]) {
 						const ghostY = y - ghostPiecePosition.pos.y
 						const ghostX = x - ghostPiecePosition.pos.x
 						if (
