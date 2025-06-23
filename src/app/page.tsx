@@ -164,13 +164,18 @@ export default function TetrisGame() {
 		if (!piece) return null
 		const previewBoard = Array(4).fill(null).map(() => Array(4).fill(null))
 		
-		// 确保在访问数组之前进行边界检查
-		const maxY = Math.min(piece.shape.length, previewBoard.length)
+		// 使用类型安全的数组访问
+		const shape = piece.shape
+		const maxY = Math.min(shape.length, 4)
+		
 		for (let y = 0; y < maxY; y++) {
-			const row = piece.shape[y]
-			const maxX = Math.min(row.length, previewBoard[y].length)
+			// 确保行存在并且是数组
+			if (!Array.isArray(shape[y])) continue
+			
+			const maxX = Math.min(shape[y].length, 4)
 			for (let x = 0; x < maxX; x++) {
-				if (row[x]) {
+				// 使用可选链和类型守卫确保安全访问
+				if (shape[y]?.[x]) {
 					previewBoard[y][x] = piece.color
 				}
 			}
