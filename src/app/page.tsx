@@ -135,7 +135,9 @@ export default function TetrisGame() {
 							ghostY >= 0 &&
 							ghostY < ghostPiecePosition.shape.length &&
 							ghostX >= 0 &&
-							ghostX < ghostPiecePosition.shape[0].length
+							ghostX < ghostPiecePosition.shape[0].length &&
+							ghostPiecePosition.shape[ghostY] &&
+							typeof ghostPiecePosition.shape[ghostY][ghostX] !== 'undefined'
 						) {
 							isGhost = ghostPiecePosition.shape[ghostY][ghostX] === 1
 						}
