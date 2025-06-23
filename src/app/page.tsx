@@ -164,11 +164,13 @@ export default function TetrisGame() {
 		if (!piece) return null
 		const previewBoard = Array(4).fill(null).map(() => Array(4).fill(null))
 		piece.shape.forEach((row, y) => {
-			row.forEach((value, x) => {
-				if (value) {
-					previewBoard[y][x] = piece.color
-				}
-			})
+			if (y < previewBoard.length) {  // 确保y在有效范围内
+				row.forEach((value, x) => {
+					if (value && x < previewBoard[y].length) {  // 确保x在有效范围内
+						previewBoard[y][x] = piece.color
+					}
+				})
+			}
 		})
 
 		return previewBoard.map((row, y) => (
