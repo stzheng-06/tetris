@@ -4,7 +4,7 @@ import { persist } from 'zustand/middleware'
 type TetrominoType = 'I' | 'O' | 'T' | 'L' | 'J' | 'S' | 'Z'
 
 interface TetrominoShape {
-  shape: number[][]
+  shape: Array<Array<0 | 1>>
   color: string
 }
 

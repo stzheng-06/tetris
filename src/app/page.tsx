@@ -162,25 +162,26 @@ export default function TetrisGame() {
 	// 渲染预览区
 	const renderPreview = (piece: typeof nextPiece | typeof heldPiece) => {
 		if (!piece) return null
+		
+		// 创建预览板
 		const previewBoard = Array(4).fill(null).map(() => Array(4).fill(null))
 		
-		// 使用类型安全的数组访问
+		// 安全地渲染预览
 		const shape = piece.shape
-		const maxY = Math.min(shape.length, 4)
+		if (!Array.isArray(shape)) return previewBoard
 		
-		for (let y = 0; y < maxY; y++) {
-			// 确保行存在并且是数组
-			if (!Array.isArray(shape[y])) continue
-			
-			const maxX = Math.min(shape[y].length, 4)
-			for (let x = 0; x < maxX; x++) {
-				// 使用可选链和类型守卫确保安全访问
-				if (shape[y]?.[x]) {
+		// 使用类型安全的数组操作
+		shape.forEach((row, y) => {
+			if (y >= 4 || !Array.isArray(row)) return
+			row.forEach((cell, x) => {
+				if (x >= 4) return
+				if (cell === 1) {
 					previewBoard[y][x] = piece.color
 				}
-			}
-		}
+			})
+		})
 
+		// 渲染预览板
 		return previewBoard.map((row, y) => (
 			<div key={y} className="flex">
 				{row.map((cell, x) => (
