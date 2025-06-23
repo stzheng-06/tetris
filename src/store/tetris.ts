@@ -309,8 +309,14 @@ export const useTetrisStore = create<TetrisState>()(
             if (value) {
               const boardY = y + currentPiece.pos.y
               const boardX = x + currentPiece.pos.x
-              if (boardY >= 0 && boardY < BOARD_HEIGHT && boardX >= 0 && boardX < BOARD_WIDTH) {
-                newBoard[boardY]![boardX] = currentPiece.color
+              if (
+                boardY >= 0 && 
+                boardY < BOARD_HEIGHT && 
+                boardX >= 0 && 
+                boardX < BOARD_WIDTH &&
+                newBoard[boardY] !== undefined
+              ) {
+                newBoard[boardY][boardX] = currentPiece.color
               }
             }
           })
@@ -365,8 +371,14 @@ function mergePieceToBoard(piece: Piece, board: (string | null)[][]): (string | 
       if (value) {
         const boardY = y + piece.pos.y
         const boardX = x + piece.pos.x
-        if (boardY >= 0 && boardY < BOARD_HEIGHT && boardX >= 0 && boardX < BOARD_WIDTH) {
-          newBoard[boardY]![boardX] = piece.color
+        if (
+          boardY >= 0 && 
+          boardY < BOARD_HEIGHT && 
+          boardX >= 0 && 
+          boardX < BOARD_WIDTH &&
+          newBoard[boardY] !== undefined
+        ) {
+          newBoard[boardY][boardX] = piece.color
         }
       }
     })
